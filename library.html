@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library</title>
+    <style>
+        .book-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+        }
+        .book-card:hover {
+            background-color: lightgray;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1 style='text-align: center;'>Books in the Library</h1>
+    <input size="25"
+      type="text"
+      id="filterInput"
+      placeholder="Filter by genre, author, or year"
+    />
+
+    <div class="book-card-container">
+        <div class="book-card" data-genre="Drama" data-author="Author 1" data-year="1960">
+          <h2>Book 1</h2>
+          <p><strong>Author:</strong> Author 1</p>
+          <p><strong>Publication Year:</strong> 1960</p>
+          <p><strong>Genre:</strong> Drama</p>
+        </div>
+  
+        <div class="book-card" data-genre="Action" data-author="Author 2" data-year="1925">
+          <h2>Book 2</h2>
+          <p><strong>Author:</strong> Author 2</p>
+          <p><strong>Publication Year:</strong> 1925</p>
+          <p><strong>Genre:</strong> Action</p>
+        </div>
+  
+        <div class="book-card" data-genre="Non-Fiction" data-author="Author 3" data-year="2011">
+          <h2>Book 3</h2>
+          <p><strong>Author:</strong> Author 3</p>
+          <p><strong>Publication Year:</strong> 2011</p>
+          <p><strong>Genre:</strong> Non-Fiction</p>
+        </div>
+  
+        <div class="book-card" data-genre="Non-Fiction" data-author="Author 4" data-year="2014">
+          <h2>Book 4</h2>
+          <p><strong>Author:</strong> Author 4</p>
+          <p><strong>Publication Year:</strong> 2014</p>
+          <p><strong>Genre:</strong> Non-Fiction</p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".book-card").hover(
+                function() {
+                    $(this).css("background-color", "lightgray");
+                },
+                function() {
+                    $(this).css("background-color", "#fff");
+                }
+            );
+
+            $("#filterInput").on("input", function() {
+                filterBooks();
+            });
+        });
+
+        function filterBooks() {
+            var input = $("#filterInput").val().toLowerCase();
+            $(".book-card").each(function() {
+                var genre = $(this).data("genre").toLowerCase();
+                var author = $(this).data("author").toLowerCase();
+                var year = $(this).data("year").toString(); 
+                if (genre.includes(input) || author.includes(input) || year.includes(input) || input === "") {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
